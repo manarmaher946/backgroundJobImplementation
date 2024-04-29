@@ -45,8 +45,12 @@ namespace backgroundImplementation.Controllers
             {
             products.Remove(Deleteproduct);
             BackgroundJob.Enqueue<IsendService>(x => x.DeleteItem());
-            }
             return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
 
         }
 
