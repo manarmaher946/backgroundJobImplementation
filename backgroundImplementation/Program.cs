@@ -1,7 +1,9 @@
 using backgroundImplementation.BackgroundService;
-using backgroundImplementation.Controllers;
+using backgroundImplementation.cashing_services;
+using backgroundImplementation.Data;
 using Hangfire;
 using Hangfire.MemoryStorage;
+using Microsoft.EntityFrameworkCore;
 namespace backgroundImplementation
 {
     public class Program
@@ -16,7 +18,12 @@ namespace backgroundImplementation
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddTransient<IsendService, SendService>(); 
+            builder.Services.AddDbContext<ApplicationDbcontext>(options =>
+           options.UseSqlServer(builder.Configuration.GetConnectionString("default"))
+           );
+            builder.Services.AddTransient<IsendService, SendService>();
+            builder.Services.AddScoped<Icashing_service, cashing_service>();
+
 
             builder.Services.AddHangfire(c => c
             .UseMemoryStorage());
