@@ -12,8 +12,8 @@ using backgroundImplementation.Data;
 namespace backgroundImplementation.Migrations
 {
     [DbContext(typeof(ApplicationDbcontext))]
-    [Migration("20240430124358_producttable")]
-    partial class producttable
+    [Migration("20240502122035_inite")]
+    partial class inite
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,25 @@ namespace backgroundImplementation.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("backgroundImplementation.Modeals.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("categories");
+                });
 
             modelBuilder.Entity("backgroundImplementation.Modeals.Product", b =>
                 {
